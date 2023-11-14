@@ -20,10 +20,7 @@ class Shop {
       if (name == "Aged Brie") {
         this.items[i].quality += 1;
         if (sellIn <= 0) {
-          console.log("aged mon cul");
-
           this.items[i].quality = 0;
-          console.log(this.items[i].quality);
         }
       } else if (name == "Sulfuras, Hand of Ragnaros") {
         // quality unchanged
@@ -50,10 +47,20 @@ class Shop {
         } else {
           this.items[i].quality -= 1;
         }
+        if (name == "foo") {
+          this.items[i].name = "fixme";
+        }
       }
-      // if (name='Sulfuras, Hand of Ragnaros' && quality > 80) {
-      //   this.items[i].quality= quality} else { if (quality >50) {this.items[i].quality=50}
-      // }
+      if ((name = "Sulfuras, Hand of Ragnaros" && quality >= 80)) {
+        this.items[i].quality = quality;
+      } else {
+        if (quality > 50) {
+          this.items[i].quality = 50;
+        }
+      }
+      if (this.items[i].quality < 0) {
+        this.items[i].quality = 0;
+      }
     }
     return this.items;
   }
@@ -62,28 +69,28 @@ module.exports = {
   Item,
   Shop,
 };
-const items = [
-  new Item("+5 Dexterity Vest", 10, 20),
-  new Item("Aged Brie", 2, 0),
-  // new Item("Elixir of the Mongoose", 5, 7),
-  // new Item("Sulfuras, Hand of Ragnaros", 0, 80),
-  // new Item("Sulfuras, Hand of Ragnaros", -1, 80),
-  // new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
-  // new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
-  // new Item("Backstage passes to a TAFKAL80ETC concert", 5, 39),
+// const items = [
+//   new Item("+5 Dexterity Vest", 10, 20),
+//   new Item("Aged Brie", 2, 0),
+//   // new Item("Elixir of the Mongoose", 5, 7),
+//   // new Item("Sulfuras, Hand of Ragnaros", 0, 80),
+//   // new Item("Sulfuras, Hand of Ragnaros", -1, 80),
+//   // new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
+//   // new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
+//   // new Item("Backstage passes to a TAFKAL80ETC concert", 5, 39),
 
-  // This Conjured item does not work properly yet
-  new Item("Conjured Mana Cake", 1, 6),
-];
+//   // This Conjured item does not work properly yet
+//   new Item("Conjured Mana Cake", 1, 6),
+// ];
 
-const days = 4;
-const gildedRose = new Shop(items);
+// const days = 4;
+// const gildedRose = new Shop(items);
 
-for (let day = 0; day <= days; day++) {
-  console.log(`\n-------- day ${day} --------`);
-  console.log("name, sellIn, quality");
-  items.forEach((item) => {
-    console.log(`${item.name}, ${item.sellIn}, ${item.quality}`);
-  });
-  gildedRose.updateQuality();
-}
+// for (let day = 0; day <= days; day++) {
+//   console.log(`\n-------- day ${day} --------`);
+//   console.log("name, sellIn, quality");
+//   items.forEach((item) => {
+//     console.log(`${item.name}, ${item.sellIn}, ${item.quality}`);
+//   });
+//   gildedRose.updateQuality();
+// }
