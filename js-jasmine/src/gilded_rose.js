@@ -13,13 +13,12 @@ class Shop {
   updateQuality() {
     for (var i = 0; i < this.items.length; i++) {
       let name = this.items[i].name;
-      let first8Name = name.slice(0, 8);
       let quality = this.items[i].quality;
       let sellIn = this.items[i].sellIn;
       this.items[i].sellIn -= 1;
       if (name == "Aged Brie") {
         this.items[i].quality += 1;
-        if (sellIn <= 0) {
+        if (sellIn <= 1) {
           this.items[i].quality = 0;
         }
       } else if (name == "Sulfuras, Hand of Ragnaros") {
@@ -33,7 +32,7 @@ class Shop {
         if (sellIn <= 0) {
           this.items[i].quality = 0;
         }
-      } else if (first8Name == "Conjured") {
+      } else if (name.slice(0, 8) == "Conjured") {
         if (sellIn > 0) {
           this.items[i].quality -= 2;
         } else {
@@ -41,7 +40,6 @@ class Shop {
         }
       } else {
         // normal objects
-        //this.items[i].name = 'fixme';
         if (sellIn < 0) {
           this.items[i].quality -= 2;
         } else {

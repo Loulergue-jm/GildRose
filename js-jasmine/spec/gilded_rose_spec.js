@@ -4,7 +4,7 @@ describe("Gilded Rose", function () {
   it("full test", () => {
     const items = [
       new Item("+5 Dexterity Vest", 10, 20),
-      new Item("Aged Brie", 2, 0),
+      new Item("Aged Brie", 1, 10),
       new Item("Elixir of the Mongoose", 5, 7),
       new Item("Sulfuras, Hand of Ragnaros", 0, 80),
       new Item("Sulfuras, Hand of Ragnaros", -1, 80),
@@ -16,7 +16,7 @@ describe("Gilded Rose", function () {
 
     const days = Number(process.argv[2]) || 3;
     const gildedRose = new Shop(items);
-
+    console.clear;
     for (let day = 0; day < days; day++) {
       console.log(`\n-------- day ${day} --------`);
       console.log("name, sellIn, quality");
