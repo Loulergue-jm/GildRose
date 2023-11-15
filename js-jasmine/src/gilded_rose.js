@@ -40,7 +40,7 @@ class Shop {
         }
       } else {
         // normal objects
-        if (sellIn < 0) {
+        if (sellIn <= 0) {
           this.items[i].quality -= 2;
         } else {
           this.items[i].quality -= 1;

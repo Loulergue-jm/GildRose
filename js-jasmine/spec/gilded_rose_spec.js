@@ -42,6 +42,15 @@ describe("Gilded Rose", function () {
     expect(items[0].quality).toBe(13);
     expect(items[1].quality).toBe(12);
   });
+  it("backstage quality should increase by 2 if sellin between 6 and 10 days", function () {
+    const gildedRose = new Shop([
+      new Item("Backstage passes to a TAFKAL80ETC concert", 9, 10),
+      new Item("Backstage passes to a TAFKAL80ETC concert", 6, 10),
+    ]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).toBe(12);
+    expect(items[1].quality).toBe(12);
+  });
   it("Sulfuras's quality doesn't change", function () {
     const gildedRose = new Shop([
       new Item("Sulfuras, Hand of Ragnaros", -1, 100),
@@ -55,20 +64,65 @@ describe("Gilded Rose", function () {
   });
   it("Item's quality should'nt be negative ", function () {
     const gildedRose = new Shop([
-      new Item("Sulfuras, Hand of Ragnaros", 2, 100),
+      new Item("Sulfuras, Hand of Ragnaros", 2, 80),
       new Item("Aged Brie", 0, 0),
       new Item("Backstage passes to a TAFKAL80ETC concert", 0, 0),
       new Item("Conjured Mana Cake", 0, 0),
       new Item("Moncul Cake", 2, 0),
     ]);
     const items = gildedRose.updateQuality();
-    expect(items[0].quality).toBe(100);
+    expect(items[0].quality).toBe(80);
     expect(items[1].quality).toBe(0);
     expect(items[2].quality).toBe(0);
     expect(items[3].quality).toBe(0);
     expect(items[4].quality).toBe(0);
   });
-  // reste à tester :
-  // agebrie augmente sa qualité plus le temps passe => la qualité tombre à 0 après concert
-  // date de péremption dépassée =>qualité se dégrade 2 fois plus vite
+
+  it("Agbrie quality should increase day by day ", function () {
+    const gildedRose = new Shop([
+      new Item("Aged Brie", 2, 0),
+      new Item("Aged Brie", 5, 10),
+    ]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).toBe(1);
+    expect(items[1].quality).toBe(11);
+  });
+
+  it("Agbrie quality should be 0 after concert ", function () {
+    const gildedRose = new Shop([
+      new Item("Aged Brie", 1, 10),
+      new Item("Aged Brie", -5, 0),
+    ]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).toBe(0);
+    expect(items[1].quality).toBe(0);
+  });
+
+  it("After the expiration date normal objects decrease by double value", function () {
+    const gildedRose = new Shop([
+      new Item("Elixir of the Mongoose", 0, 2),
+      new Item("Moncul Cake", 0, 8),
+    ]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).toBe(0);
+    expect(items[1].quality).toBe(6);
+  });
+  it("Conjured object quality's decrease by 2 before concert and by 4 after concert", function () {
+    const gildedRose = new Shop([
+      new Item("Conjured Mana Cake", 3, 12),
+      new Item("Conjured Moncul", 0, 8),
+    ]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).toBe(10);
+    expect(items[1].quality).toBe(4);
+  });
+  it("Sulfuras object quality should'nt be changed and remains at 80.", function () {
+    const gildedRose = new Shop([
+      new Item("Sulfuras, Hand of Ragnaros", 3, 80),
+      new Item("Sulfuras, Hand of Ragnaros", -3, 80),
+    ]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).toBe(80);
+    expect(items[1].quality).toBe(80);
+  });
 });
